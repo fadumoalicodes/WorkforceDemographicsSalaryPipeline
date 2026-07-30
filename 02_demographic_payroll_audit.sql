@@ -26,10 +26,9 @@ select *
 from AVERAGESALARY
 
 
--- ====================================================================
--- FEATURED ANALYSIS 2: Top Earner Isolation Per Job Title
--- Scenario: Ranks salaries dynamically within each job title and extracts the #1 highest-paid individual(s).
--- ====================================================================
+FEATURED ANALYSIS 2: Top Earner Isolation Per Job Title
+Scenario: Ranks salaries dynamically within each job title and extracts the #1 highest-paid individual(s).
+
 
 WITH MasterDemographics AS (
 SELECT ED.EmployeeID, ED.Age
