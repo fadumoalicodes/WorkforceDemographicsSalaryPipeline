@@ -43,7 +43,28 @@ left join [SQLTUTORIAL].dbo.EmployeeSalary AS ES
 on masterdemographics.EmployeeID = ES.EmployeeID
 where salary is not null)
 
-SELECT*
+  SELECT*
 FROM RANKPERJOBTITLETABLE
 where RANKPERJOBTITLE = 1
+
+
+  FEATURED ANALYSIS 3: Gender Based Youth Roster Tracking
+  Scenario: Segregates global enterprise demographics and isolates the absolute youngest staff members per gender cohort.
+
+  
+
+WITH MasterDemographics AS (
+SELECT  ED.EmployeeId, ED.Age, ED.Gender
+FROM [SQLTUTORIAL].DBO.EMPLOYEEDEMOGRAPHICS AS ED
+UNION ALL
+SELECT WD.EMPLOYEEID, WD.AGE, WD.GENDER
+FROM [SQLTUTORIAL].DBO.WarehouseEmployeeDemographics AS WD ) , 
+YOUNGESTPERSONOFEACHGENDER AS (
+SELECT DENSE_RANK() OVER ( PARTITION BY GENDER ORDER BY AGE ) AS RANKAGE, MasterDemographics.Gender, MasterDemographics.Age
+FROM MasterDemographics
+WHERE AGE IS NOT NULL)
+
+SELECT *
+FROM YOUNGESTPERSONOFEACHGENDER
+WHERE RANKAGE = 1
 
